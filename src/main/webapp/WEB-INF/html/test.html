@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>test</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<form action="http://bookadmin.lalagg.com/animebook/index.php" method="post" enctype ="multipart/form-data">
+	<input type="hidden" name="c" value="CoCosStory" />
+	<input type="hidden" name="m" value="createScene" />
+	<input type="hidden" name="storyId" value="1" />
+	<input type="hidden" name="sceneName" value="第一幕" />
+	<input type="file" name="file" />
+	<input type="submit" value="Submit" />
+</form>
+</br>
+<form action="http://bookadmin.lalagg.com/animebook/index.php" method="post" enctype ="multipart/form-data">
+	<input type="hidden" name="c" value="CoCosStory" />
+	<input type="hidden" name="m" value="editRole" />
+	<input type="hidden" name="roleId" value="31" />
+	<input type="hidden" name="roleName" value="皇帝-裸体" />
+	<input type="file" name="file[]" multiple="multiple"/>
+	<input type="submit" value="Submit" />
+</form>
+</br>
+<form action="http://bookadmin.lalagg.com/animebook/index.php" method="post" enctype ="multipart/form-data">
+	<input type="hidden" name="c" value="CoCosAudio" />
+	<input type="hidden" name="m" value="addAudio" />
+	<input type="hidden" name="storyId" value="1" />
+	<input type="file" name="file[]" multiple="multiple"/>
+	<input type="submit" value="Submit" />
+</form>
+</br>
+<form action="http://bookadmin.lalagg.com/animebook/index.php" method="post" enctype ="multipart/form-data">
+	<input type="hidden" name="c" value="CoCosAct" />
+	<input type="hidden" name="m" value="addResource" />
+	<input type="hidden" name="storyId" value="1" />
+	<input type="file" name="file[]" multiple="multiple"/>
+	<input type="submit" value="Submit" />
+</form>
+</br>
+<button id="b01" type="button">入库</button>
+<button id="b02" type="button">删除</button>
+</br>
+<div id="result">
+</div>
+<script>
+var id = 316;
+$("#b01").click(function(){
+	htmlobj=$.ajax({
+		type: "POST", 
+		url:"http://localhost:8080/jweb_book_search/book/index",
+		async:false,
+		data: JSON.stringify({                    
+            list:[{
+				"id": id,
+				"type": 1
+			}
+			]
+        }),  
+        contentType: "application/json; charset=utf-8",  
+        dataType: "json", 
+		success: function(data) {  
+            $('#result').text(data.result);  
+        }
+		});
+})
+$("#b02").click(function(){
+	htmlobj=$.ajax({
+		type: "POST", 
+		url:"http://localhost:8080/jweb_book_search/book/index",
+		async:false,
+		data: JSON.stringify({                    
+            list:[{
+				"id": id,
+				"type": 1,
+				"isDelete": 2
+			}
+			]
+        }),  
+        contentType: "application/json; charset=utf-8",  
+        dataType: "json", 
+		success: function(data) {  
+            $('#result').text(data.result);  
+        }
+		});
+})
+</script>
+</body>
+</html>
